@@ -1,0 +1,87 @@
+1. For Landing page. 
+// app/layout.js
+import "./globals.css";
+import { themeScript } from "./theme-script";
+import ClientLayout from "@/components/ClientLayout";
+
+export const metadata = {
+  title: "Transform your business with digital solutions - Bolawa IT Solutions Limited",
+  description: "Transform your business with cutting-edge web development and digital solutions",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+
+     <body
+        className="
+          bg-[var(--color-background-light)]
+          text-[var(--color-text-light)]
+          dark:bg-[var(--color-background-dark)]
+          dark:text-[var(--color-text-dark)]
+          font-sans
+          transition-colors duration-300
+          antialiased
+        "
+      >
+        <ClientLayout>{children}</ClientLayout>
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="OdCeXecG5Gqf1mZU6v_ht";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+      </body>
+    </html>
+  );
+}
+
+// app/page.js
+"use client";
+
+import React, { useEffect, useState } from 'react';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import Stats from '@/components/Stats';
+import Services from '@/components/Services';
+import Testimonials from '@/components/Testimonials';
+import FAQ from '@/components/FAQ';
+import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
+import LoadingSpinner from '@/components/Spinner';
+import BrandsSlideshow from '@/components/BrandsSlideshow';
+
+
+export default function Home() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    const timer = setTimeout(() => setLoading(false), 100);
+    return () => clearTimeout(timer); 
+  }, []);
+
+  if (loading) {
+    return (
+        <LoadingSpinner />
+    );
+  }
+  
+  return (
+    <main className="min-h-screen">
+      <Navbar />
+      <Hero />
+      <Stats />
+      <BrandsSlideshow/>
+      <Services />
+      <Testimonials />
+      <FAQ />
+      <Contact />
+      <Footer />
+    </main>
+  );
+}
