@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BISL | Bolawa IT Solutions - Digital Transformation for SMEs</title>
+    <meta name="description" content="BISL delivers integrated digital platforms tailored to small businesses. Web development, SEO, mobile apps, and data reporting under one affordable package.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #FFFFFF;
+        }
+        .gradient-gold {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #F59E0B, #B45309);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hover-gold:hover {
+            transition: all 0.3s ease;
+            filter: brightness(1.05);
+        }
+        .shadow-elegant {
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+<!-- ============================================ -->
+<!-- CHATBOT WITH APPOINTMENT + WHATSAPP + EMAIL  -->
+<!-- ============================================ -->
+
+<style>
+.chatbot-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+}
+.chatbot-button {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+.chatbot-button:hover {
+    transform: scale(1.05);
+}
+.chatbot-button i {
+    font-size: 28px;
+    color: white;
+}
+.chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 380px;
+    height: 550px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+.chatbot-window.open {
+    display: flex;
+}
+.chatbot-header {
+    background: linear-gradient(135deg, #0A192F, #1E2A3A);
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chatbot-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.chatbot-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+.chatbot-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background: #F9FAFB;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.message {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.message.bot {
+    background: white;
+    color: #1F2937;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.message.user {
+    background: #F59E0B;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+.chatbot-input {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #E5E7EB;
+    background: white;
+    gap: 8px;
+}
+.chatbot-input input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 24px;
+    outline: none;
+    font-size: 14px;
+}
+.chatbot-input input:focus {
+    border-color: #F59E0B;
+}
+.chatbot-input button {
+    background: #F59E0B;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 24px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+.chatbot-input button:hover {
+    background: #D97706;
+}
+.options-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    background: #F9FAFB;
+}
+.option-card {
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.option-card:hover {
+    border-color: #F59E0B;
+    box-shadow: 0 8px 20px rgba(245,158,11,0.12);
+    transform: translateY(-2px);
+}
+.option-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+.option-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #1F2937;
+    margin-bottom: 6px;
+}
+.option-desc {
+    font-size: 13px;
+    color: #6B7280;
+}
+.appointment-form {
+    padding: 16px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.appointment-form h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 4px;
+}
+.appointment-form input, 
+.appointment-form select,
+.appointment-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+}
+.appointment-form input:focus,
+.appointment-form select:focus {
+    border-color: #F59E0B;
+}
+.appointment-form button {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+}
+.back-button {
+    background: none;
+    border: none;
+    color: #F59E0B;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 18px;
+    width: fit-content;
+}
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #9CA3AF;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+}
+</style>
+
+<div class="chatbot-container">
+    <div class="chatbot-button" id="chatbotButton">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> BISL Assistant</h3>
+            <button id="closeChatbot">&times;</button>
+        </div>
+        <div id="chatbotContent" style="flex: 1; display: flex; flex-direction: column; overflow: hidden;"></div>
+    </div>
+</div>
+
+<script>
+// Configuration
+const WHATSAPP_NUMBER = "254717111749"; // Your number (without +)
+const ADMIN_EMAIL = "fessycompass@gmail.com"; // BISL email for notifications
+
+// State
+let currentView = 'options';
+let chatMessages = [];
+
+// DOM elements
+const chatbotButton = document.getElementById("chatbotButton");
+const chatbotWindow = document.getElementById("chatbotWindow");
+const closeChatbot = document.getElementById("closeChatbot");
+const chatbotContent = document.getElementById("chatbotContent");
+
+// Open/close
+chatbotButton.addEventListener("click", () => {
+    chatbotWindow.classList.toggle("open");
+    if (chatbotWindow.classList.contains("open") && currentView === 'options') {
+        renderOptionsScreen();
+    }
+});
+closeChatbot.addEventListener("click", () => {
+    chatbotWindow.classList.remove("open");
+});
+
+// Knowledge base
+const botResponses = {
+    "what do you do": "BISL provides an integrated digital platform for SMEs: web development, SEO, mobile apps, and data reporting — all in one package.",
+    "services": "We offer: 1) Fast websites, 2) Mobile/PWA apps, 3) SEO & data dashboards, 4) E-commerce solutions.",
+    "pricing": "Our packages are scalable and affordable. Please contact us for a custom quote based on your business needs.",
+    "contact": "You can reach us at Ikeja GRA, Lagos, call +234 (811) 760-2673, or email akinbolawa90@gmail.com",
+    "mobile app": "Yes! We build and publish mobile apps for iOS and Android.",
+    "seo": "We provide advanced SEO with APIs, dashboards, and 24/7 data reporting.",
+    "appointment": "You can book an appointment by clicking the 'Book an Appointment' option on our main menu.",
+    "default": "Thanks for your question! Would you like to book a free consultation appointment? Just say 'appointment' or ask me anything else."
+};
+
+function getBotReply(message) {
+    const lowerMsg = message.toLowerCase();
+    for (const [key, reply] of Object.entries(botResponses)) {
+        if (lowerMsg.includes(key)) return reply;
+    }
+    return botResponses["default"];
+}
+
+// Send WhatsApp notification
+async function sendWhatsAppNotification(appointment) {
+    const message = `🔔 *NEW APPOINTMENT REQUEST - BISL* 🔔\n\n👤 Name: ${appointment.name}\n📧 Email: ${appointment.email}\n📞 Phone: ${appointment.phone || 'Not provided'}\n🛠️ Service: ${appointment.service}\n📅 Date: ${appointment.date || 'Not specified'}\n⏰ Time: ${appointment.time || 'Not specified'}\n📝 Notes: ${appointment.notes || 'None'}\n\n🌐 From BISL Website Chatbot`;
+    const encodedMsg = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+// Send email notification (via mailto - opens default email client)
+function sendEmailNotification(appointment) {
+    const subject = `New Appointment Request from ${appointment.name}`;
+    const body = `New appointment request from BISL website chatbot:\n\nName: ${appointment.name}\nEmail: ${appointment.email}\nPhone: ${appointment.phone || 'Not provided'}\nService: ${appointment.service}\nPreferred Date: ${appointment.date || 'Not specified'}\nPreferred Time: ${appointment.time || 'Not specified'}\nAdditional Notes: ${appointment.notes || 'None'}\n\nPlease contact this lead within 24 hours.`;
+    window.location.href = `mailto:${ADMIN_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// Submit appointment
+async function submitAppointment() {
+    const name = document.getElementById("apptName")?.value.trim();
+    const email = document.getElementById("apptEmail")?.value.trim();
+    const phone = document.getElementById("apptPhone")?.value.trim();
+    const service = document.getElementById("apptService")?.value;
+    const date = document.getElementById("apptDate")?.value;
+    const time = document.getElementById("apptTime")?.value;
+    const notes = document.getElementById("apptNotes")?.value;
+    
+    if (!name || !email || !service) {
+        alert("Please fill in name, email, and select a service.");
+        return;
+    }
+    
+    const appointment = { name, email, phone, service, date, time, notes, timestamp: new Date().toISOString() };
+    
+    // Show loading
+    const submitBtn = document.getElementById("submitAppointment");
+    const originalText = submitBtn.innerText;
+    submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
+    
+    try {
+        // Send WhatsApp notification
+        await sendWhatsAppNotification(appointment);
+        
+        // Send email notification
+        sendEmailNotification(appointment);
+        
+        // Store locally
+        console.log("Appointment booked:", appointment);
+        
+        alert(`✅ Thank you ${name}! Your consultation request for ${service} has been sent.\n\nWe'll contact you via WhatsApp and email within 24 hours.`);
+        renderOptionsScreen();
+    } catch (error) {
+        console.error("Error:", error);
+        alert("There was an issue. Your request was logged. We'll contact you soon.");
+        renderOptionsScreen();
+    }
+}
+
+// Render options screen
+function renderOptionsScreen() {
+    currentView = 'options';
+    chatbotContent.innerHTML = `
+        <div class="options-screen">
+            <div class="option-card" id="bookAppointmentOption">
+                <div class="option-icon">📅</div>
+                <div class="option-title">Book an Appointment</div>
+                <div class="option-desc">Choose a service, date & time</div>
+            </div>
+            <div class="option-card" id="chatWithAIOption">
+                <div class="option-icon">💬</div>
+                <div class="option-title">Chat with AI Assistant</div>
+                <div class="option-desc">Ask questions or get help</div>
+            </div>
+            <div style="font-size: 11px; color: #9CA3AF; text-align: center; margin-top: 16px;">
+                Powered by BISL
+            </div>
+        </div>
+    `;
+    document.getElementById("bookAppointmentOption")?.addEventListener("click", renderAppointmentForm);
+    document.getElementById("chatWithAIOption")?.addEventListener("click", () => {
+        renderChatScreen();
+        addBotMessage("Hi! I'm BISL's AI assistant. Ask me about our services, pricing, mobile apps, SEO, or anything else!");
+    });
+}
+
+// Render appointment form
+function renderAppointmentForm() {
+    currentView = 'appointment';
+    chatbotContent.innerHTML = `
+        <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+            <div style="padding: 12px 16px 0 16px;">
+                <button class="back-button" id="backToOptions">
+                    ← Back
+                </button>
+            </div>
+            <div class="appointment-form" style="flex: 1; overflow-y: auto;">
+                <h4>📅 Book a Free Consultation</h4>
+                <input type="text" id="apptName" placeholder="Full name *">
+                <input type="email" id="apptEmail" placeholder="Email address *">
+                <input type="tel" id="apptPhone" placeholder="Phone number">
+                <select id="apptService">
+                    <option value="">Select service *</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="Mobile App Development">Mobile App Development</option>
+                    <option value="SEO & Digital Marketing">SEO & Digital Marketing</option>
+                    <option value="E-commerce Solution">E-commerce Solution</option>
+                    <option value="Full Digital Transformation">Full Digital Transformation</option>
+                </select>
+                <input type="date" id="apptDate">
+                <input type="time" id="apptTime">
+                <textarea id="apptNotes" rows="2" placeholder="Additional notes (optional)"></textarea>
+                <button id="submitAppointment">Submit Request →</button>
+            </div>
+        </div>
+    `;
+    document.getElementById("backToOptions")?.addEventListener("click", renderOptionsScreen);
+    document.getElementById("submitAppointment")?.addEventListener("click", submitAppointment);
+}
+
+// Render chat screen
+function renderChatScreen() {
+    currentView = 'chat';
+    chatbotContent.innerHTML = `
+        <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+            <div style="padding: 12px 16px 8px 16px; border-bottom: 1px solid #E5E7EB;">
+                <button class="back-button" id="backToOptionsChat">
+                    ← Back to menu
+                </button>
+            </div>
+            <div id="chatMessagesList" class="chatbot-messages" style="flex: 1; overflow-y: auto;"></div>
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Type your message...">
+                <button id="sendChatBtn">Send</button>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById("backToOptionsChat")?.addEventListener("click", renderOptionsScreen);
+    
+    const messagesContainer = document.getElementById("chatMessagesList");
+    chatMessages.forEach(msg => {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = `message ${msg.sender}`;
+        msgDiv.innerText = msg.text;
+        messagesContainer?.appendChild(msgDiv);
+    });
+    
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendChatBtn");
+    
+    function sendMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        
+        chatMessages.push({ sender: "user", text: text });
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "message user";
+        msgDiv.innerText = text;
+        messagesContainer?.appendChild(msgDiv);
+        chatInput.value = "";
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        
+        const typingDiv = document.createElement("div");
+        typingDiv.className = "typing-indicator";
+        typingDiv.id = "typingIndicator";
+        typingDiv.innerHTML = "<span></span><span></span><span></span>";
+        messagesContainer?.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        
+        setTimeout(() => {
+            document.getElementById("typingIndicator")?.remove();
+            const reply = getBotReply(text);
+            chatMessages.push({ sender: "bot", text: reply });
+            const botDiv = document.createElement("div");
+            botDiv.className = "message bot";
+            botDiv.innerText = reply;
+            messagesContainer?.appendChild(botDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 600);
+    }
+    
+    sendBtn?.addEventListener("click", sendMessage);
+    chatInput?.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+}
+
+function addBotMessage(text) {
+    const messagesContainer = document.getElementById("chatMessagesList");
+    if (!messagesContainer) return;
+    chatMessages.push({ sender: "bot", text: text });
+    const msgDiv = document.createElement("div");
+    msgDiv.className = "message bot";
+    msgDiv.innerText = text;
+    messagesContainer.appendChild(msgDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Initialize
+renderOptionsScreen();
+</script>
+</body>
+</html>
+    
